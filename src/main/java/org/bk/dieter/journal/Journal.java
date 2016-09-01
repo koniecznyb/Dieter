@@ -1,8 +1,6 @@
 package org.bk.dieter.journal;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.bk.dieter.product.Product;
 import org.bk.dieter.user.Customer;
 
@@ -21,11 +19,10 @@ public class Journal {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     @OneToMany
     private Set<Product> productList;
     @ManyToOne
     private Customer customer;
     private LocalDateTime createdAt;
-
 }

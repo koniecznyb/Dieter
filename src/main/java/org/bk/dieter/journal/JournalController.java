@@ -30,10 +30,10 @@ public class JournalController {
     @RequestMapping(value = "/journal", method = RequestMethod.POST)
     public
     @ResponseBody
-    Journal saveJournal(@RequestBody Journal Journal) {
-        LOG.info("saving Journal: " + Journal);
-        Journal.setCreatedAt(ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime());
-        return journalRepository.save(Journal);
+    Journal saveJournal(@RequestBody Journal journal) {
+        LOG.info("saving Journal: " + journal);
+        journal.setCreatedAt(ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime());
+        return journalRepository.save(journal);
     }
 
     @RequestMapping(value = "/journal/{id}", method = RequestMethod.GET)

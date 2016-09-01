@@ -1,8 +1,6 @@
 package org.bk.dieter.product;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +18,7 @@ import java.time.ZonedDateTime;
 public class Product {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     private String name;
     private int calories;
     private int carbohydrates;

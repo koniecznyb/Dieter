@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ProductRepository extends CrudRepository<Product, Long>{
 
     Optional<Product> findByName(String name);
-    Optional<Product> findById(int productId);
+    Optional<Product> findById(Long productId);
     List<Product> findAll();
 
 }
