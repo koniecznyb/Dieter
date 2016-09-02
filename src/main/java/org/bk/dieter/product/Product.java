@@ -2,10 +2,9 @@ package org.bk.dieter.product;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 /**
@@ -15,14 +14,43 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @ToString
+@Table(name = "product")
 public class Product {
+
     @Id
-    @GeneratedValue
+    @Column(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_gen")
+    @SequenceGenerator(name = "product_id_gen", sequenceName = "seq_product_id", initialValue = 1, allocationSize = 1)
     private Long id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "calories", nullable = false)
     private int calories;
+
+    @Column(name = "carbohydrates", nullable = false)
     private int carbohydrates;
+
+    @Column(name = "fats", nullable = false)
     private int fats;
+
+    @Column(name = "proteins", nullable = false)
     private int proteins;
-    private LocalDateTime createdAt;
+
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creationDate;
+
+    @Column(name = "last_modification_date", nullable = false)
+    private LocalDateTime lastModificationDate;
+
+    @PrePersist
+    protected void onPrePersist() {
+        creationDate = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+    }
+
+    @PreUpdate
+    protected void onPreUpdate() {
+        lastModificationDate = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+    }
 }
