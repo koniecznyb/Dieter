@@ -3,7 +3,7 @@ package org.bk.dieter.user;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.bk.dieter.product.Product;
+import org.bk.dieter.journal.Journal;
 import org.bk.dieter.role.Role;
 
 import javax.persistence.*;
@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,14 +42,12 @@ public class Customer {
     private LocalDateTime lastModificationDate;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(joinColumns = {@JoinColumn(name = "customer_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", nullable = false)})
+    @JoinTable(joinColumns = @JoinColumn(name = "customer_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     private Set<Role> roles = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(joinColumns = {@JoinColumn(name = "customer_id", nullable = false)},
-            inverseJoinColumns ={@JoinColumn(name = "product_id", nullable = false)})
-    private Set<Product> products = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<Journal> journals = new HashSet<>();
 
     @PrePersist
     protected void onPrePersist() {

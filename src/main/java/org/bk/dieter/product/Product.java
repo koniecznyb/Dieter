@@ -1,11 +1,13 @@
 package org.bk.dieter.product;
 
 import lombok.*;
+import org.bk.dieter.journal.Journal;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 /**
  * Created by redi on 03.04.2016.
@@ -43,6 +45,9 @@ public class Product {
 
     @Column(name = "last_modification_date", nullable = false)
     private LocalDateTime lastModificationDate;
+
+    @ManyToMany(mappedBy = "products")
+    private Set<Journal> journals;
 
     @PrePersist
     protected void onPrePersist() {

@@ -1,11 +1,15 @@
 package org.bk.dieter.journal;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.bk.dieter.product.Product;
 import org.bk.dieter.user.Customer;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Set;
 
 /**
@@ -15,14 +19,37 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@Table(name = "journal")
 public class Journal {
 
     @Id
-    @GeneratedValue
+    @Column(name = "journal_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "journal_id_gen")
+    @SequenceGenerator(name = "journal_id_gen", sequenceName = "seq_journal_id", allocationSize = 1, initialValue = 1)
     private Long id;
-    @OneToMany
-    private Set<Product> productList;
-    @ManyToOne
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(joinColumns = @JoinColumn(name = "journal_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "product_id", nullable = false))
+    private Set<Product> products;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-    private LocalDateTime createdAt;
+
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creationDate;
+
+    @Column(name = "last_modification_date", nullable = false)
+    private LocalDateTime lastModificationDate;
+
+    @PrePersist
+    protected void onPrePersist() {
+        creationDate = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+    }
+
+    @PreUpdate
+    protected void onPreUpdate() {
+        lastModificationDate = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+    }
 }
