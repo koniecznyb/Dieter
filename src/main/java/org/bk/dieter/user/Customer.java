@@ -21,7 +21,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@Table(name = "customers")
+@Table(name = "customer")
 public class Customer {
 
     @Id
