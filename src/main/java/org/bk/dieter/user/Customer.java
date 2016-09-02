@@ -18,7 +18,6 @@ import java.util.Set;
  */
 @Entity
 @Getter
-@ToString
 @Table(name = "customer")
 public class Customer {
 

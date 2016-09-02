@@ -14,7 +14,6 @@ import java.util.Set;
  */
 @Getter
 @Entity
-@ToString
 @Table(name = "role")
 public class Role {
 

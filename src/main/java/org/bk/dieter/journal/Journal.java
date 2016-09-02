@@ -17,7 +17,6 @@ import java.util.Set;
  */
 @Entity
 @Getter
-@ToString
 @Table(name = "journal")
 public class Journal {
 

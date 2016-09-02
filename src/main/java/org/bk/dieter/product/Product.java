@@ -14,7 +14,6 @@ import java.util.Set;
  */
 @Entity
 @Getter
-@ToString
 @Table(name = "product")
 public class Product {
 

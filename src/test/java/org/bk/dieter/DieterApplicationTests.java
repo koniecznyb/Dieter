@@ -6,6 +6,7 @@ import org.bk.dieter.product.Product;
 import org.bk.dieter.product.ProductRepository;
 import org.bk.dieter.user.Customer;
 import org.bk.dieter.user.CustomerRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -53,29 +57,9 @@ public class DieterApplicationTests {
 //        then
         Optional<Customer> result = customerRepository.findByFirstName("Bart");
         assertThat(result.isPresent()).isTrue();
-        assertThat(result.get().getCreationDate()).isEqualTo(currentTimeInUtc);
+        assertThat(result.get().getCreationDate()).isAfterOrEqualTo(currentTimeInUtc);
     }
 
-    @Test
-    @WithMockUser(authorities = {"ROLE_USER"})
-    @Transactional
-    public void shouldCreateNewJournal() throws Exception {
-//        given
-        LocalDateTime currentTimeInUtc = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
-        Journal journal = new Journal();
-        journal.setCustomer(null);
-        journal.setProducts(Collections.emptySet());
-
-//        when
-        journalRepository.save(journal);
-
-//        then
-        Optional<Journal> result = journalRepository.findById(journal.getId());
-        assertThat(result.isPresent()).isTrue();
-        assertThat(result.get().getCreationDate()).isEqualTo(currentTimeInUtc);
-        assertThat(result.get().getCustomer()).isEqualTo(null);
-        assertThat(result.get().getProducts()).isEqualTo(Collections.emptySet());
-    }
 
     @Test
     @WithMockUser(authorities = {"ROLE_USER"})
@@ -100,7 +84,7 @@ public class DieterApplicationTests {
         assertThat(result.get().getFats()).isEqualTo(12);
         assertThat(result.get().getProteins()).isEqualTo(13);
         assertThat(result.get().getName()).isEqualTo("KURA");
-        assertThat(result.get().getCreationDate()).isEqualTo(currentTimeInUtc);
+        assertThat(result.get().getCreationDate()).isAfterOrEqualTo(currentTimeInUtc);
     }
 
     @Test
@@ -120,24 +104,55 @@ public class DieterApplicationTests {
         journal.setProducts(Collections.emptySet());
 
 //        when
-        customerRepository.save(customer);
         journalRepository.save(journal);
 
 //        then
         Optional<Journal> result = journalRepository.findById(journal.getId());
         assertThat(result.isPresent()).isTrue();
         assertThat(result.get().getProducts()).isEqualTo(Collections.emptySet());
-        assertThat(result.get().getCreationDate()).isEqualTo(currentTimeInUtc);
+        assertThat(result.get().getCreationDate()).isAfterOrEqualTo(currentTimeInUtc);
         assertThat(result.get().getCustomer()).isEqualTo(customer);
     }
 
     @Test
+    @Transactional
+    @WithMockUser(authorities = {"ROLE_USER", "ROLE_ADMIN"})
     public void shouldAddExistingProductToTheJournal() throws Exception {
+        //        given
+        LocalDateTime currentTimeInUtc = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+        Customer customer = new Customer();
+        customer.setFirstName("Json");
+        customer.setLastName("Derulo");
 
-    }
+        Journal journal = new Journal();
+        journal.setCustomer(customer);
 
-    @Test
-    public void shouldCreateNewProductIfDoesntExistWhenAddingToTheJournal() throws Exception {
+        Product product = new Product();
+        product.setName("KURA");
+        product.setCalories(10);
+        product.setCarbohydrates(100);
+        product.setFats(12);
+        product.setProteins(13);
 
+        journal.setProducts(new HashSet<>(Collections.singletonList(product)));
+
+        customer.setJournals(new HashSet<>(Collections.singletonList(journal)));
+
+//        when
+        customerRepository.save(customer);
+
+//        then
+        Optional<Journal> journalResult = journalRepository.findById(journal.getId());
+        Optional<Product> productResult = productRepository.findByName("KURA");
+        assertThat(journalResult.isPresent()).isTrue();
+        assertThat(productResult.isPresent()).isTrue();
+        assertThat(journalResult.get().getProducts()).isEqualTo(new HashSet<>(Collections.singletonList(productResult)));
+        assertThat(journalResult.get().getCreationDate()).isAfterOrEqualTo(currentTimeInUtc);
+        assertThat(journalResult.get().getCustomer()).isEqualTo(customer);
+        assertThat(productResult.get().getCalories()).isEqualTo(10);
+        assertThat(productResult.get().getCarbohydrates()).isEqualTo(100);
+        assertThat(productResult.get().getFats()).isEqualTo(12);
+        assertThat(productResult.get().getProteins()).isEqualTo(13);
+        assertThat(productResult.get().getName()).isEqualTo("KURA");
     }
 }
