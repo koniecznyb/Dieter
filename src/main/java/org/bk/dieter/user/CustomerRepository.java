@@ -14,7 +14,7 @@ import java.util.Optional;
 @PreAuthorize("hasRole('ROLE_USER')")
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
-    Optional<Customer> findByName(String name);
+    Optional<Customer> findByFirstName(String firstName);
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override

@@ -17,9 +17,9 @@ public class CustomerController {
     @Autowired
     CustomerRepository customerRepository;
 
-    @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
-    public Customer getUser(@PathVariable String name) {
-        Optional<Customer> user = customerRepository.findByName(name);
+    @RequestMapping(value = "/user/{firstName}", method = RequestMethod.GET)
+    public Customer getUser(@PathVariable String firstName) {
+        Optional<Customer> user = customerRepository.findByFirstName(firstName);
         if (user.isPresent()) {
             return user.get();
         }

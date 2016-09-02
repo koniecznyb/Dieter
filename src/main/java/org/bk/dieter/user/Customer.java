@@ -18,7 +18,6 @@ import java.util.Set;
  */
 @Entity
 @Getter
-@Setter
 @ToString
 @Table(name = "customer")
 public class Customer {
@@ -30,10 +29,22 @@ public class Customer {
     private Long id;
 
     @Column(name = "first_name", nullable = false)
+    @Setter
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
+    @Setter
     private String lastName;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(joinColumns = @JoinColumn(name = "customer_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
+    @Setter
+    private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "customer")
+    @Setter
+    private Set<Journal> journals = new HashSet<>();
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
@@ -41,17 +52,11 @@ public class Customer {
     @Column(name = "last_modification_date", nullable = false)
     private LocalDateTime lastModificationDate;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(joinColumns = @JoinColumn(name = "customer_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
-    private Set<Role> roles = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "customer")
-    private Set<Journal> journals = new HashSet<>();
-
     @PrePersist
     protected void onPrePersist() {
-        creationDate = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+        LocalDateTime now = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+        creationDate = now;
+        lastModificationDate = now;
     }
 
     @PreUpdate

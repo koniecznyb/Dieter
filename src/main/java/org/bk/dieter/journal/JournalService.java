@@ -27,7 +27,7 @@ public class JournalService {
         if (!productOptional.isPresent()) {
             productRepository.save(product);
         }
-        journal.getProductList().add(product);
+        journal.getProducts().add(product);
         return journal;
     }
 }

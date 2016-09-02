@@ -32,7 +32,6 @@ public class JournalController {
     @ResponseBody
     Journal saveJournal(@RequestBody Journal journal) {
         LOG.info("saving Journal: " + journal);
-        journal.setCreatedAt(ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime());
         return journalRepository.save(journal);
     }
 

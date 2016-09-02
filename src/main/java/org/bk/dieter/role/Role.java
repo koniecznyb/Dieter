@@ -13,7 +13,6 @@ import java.util.Set;
  * Created by Bartłomiej Konieczny on 02-Sep-16.
  */
 @Getter
-@Setter
 @Entity
 @ToString
 @Table(name = "role")
@@ -26,8 +25,10 @@ public class Role {
     private Long id;
 
     @Column(name = "role_name", nullable = false)
+    @Setter
     private String roleName;
 
     @ManyToMany(mappedBy = "roles")
+    @Setter
     private Set<Customer> customers = new HashSet<>();
 }

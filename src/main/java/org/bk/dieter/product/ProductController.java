@@ -32,7 +32,6 @@ public class ProductController {
     @ResponseBody
     Product saveProduct(@RequestBody Product product) {
         LOG.info("saving product: " + product);
-        product.setCreatedAt(ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime());
         return productRepository.save(product);
     }
 

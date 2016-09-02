@@ -14,7 +14,6 @@ import java.util.Set;
  */
 @Entity
 @Getter
-@Setter
 @ToString
 @Table(name = "product")
 public class Product {
@@ -26,19 +25,28 @@ public class Product {
     private Long id;
 
     @Column(name = "name", nullable = false)
+    @Setter
     private String name;
 
     @Column(name = "calories", nullable = false)
+    @Setter
     private int calories;
 
     @Column(name = "carbohydrates", nullable = false)
+    @Setter
     private int carbohydrates;
 
     @Column(name = "fats", nullable = false)
+    @Setter
     private int fats;
 
     @Column(name = "proteins", nullable = false)
+    @Setter
     private int proteins;
+
+    @ManyToMany(mappedBy = "products")
+    @Setter
+    private Set<Journal> journals;
 
     @Column(name = "creation_date", nullable = false)
     private LocalDateTime creationDate;
@@ -46,12 +54,11 @@ public class Product {
     @Column(name = "last_modification_date", nullable = false)
     private LocalDateTime lastModificationDate;
 
-    @ManyToMany(mappedBy = "products")
-    private Set<Journal> journals;
-
     @PrePersist
     protected void onPrePersist() {
-        creationDate = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+        LocalDateTime now = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+        creationDate = now;
+        lastModificationDate = now;
     }
 
     @PreUpdate

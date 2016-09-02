@@ -17,7 +17,6 @@ import java.util.Set;
  */
 @Entity
 @Getter
-@Setter
 @ToString
 @Table(name = "journal")
 public class Journal {
@@ -31,10 +30,12 @@ public class Journal {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(joinColumns = @JoinColumn(name = "journal_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "product_id", nullable = false))
+    @Setter
     private Set<Product> products;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", nullable = false)
+    @Setter
     private Customer customer;
 
     @Column(name = "creation_date", nullable = false)
@@ -45,7 +46,9 @@ public class Journal {
 
     @PrePersist
     protected void onPrePersist() {
-        creationDate = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+        LocalDateTime now = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
+        creationDate = now;
+        lastModificationDate = now;
     }
 
     @PreUpdate
