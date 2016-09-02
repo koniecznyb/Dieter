@@ -2,6 +2,7 @@ package org.bk.dieter.role;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.bk.dieter.user.Customer;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "role")
 public class Role {
 
