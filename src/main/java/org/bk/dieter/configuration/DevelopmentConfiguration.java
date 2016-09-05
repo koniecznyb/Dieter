@@ -30,7 +30,7 @@ public class DevelopmentConfiguration {
         properties.put("hibernate.show_sql", true);
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
         properties.put("hibernate.hbm2ddl.auto", "create");
-        properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.show_sql", true);
         return properties;
     }
 }
