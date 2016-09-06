@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Optional;
 
 /**
@@ -35,21 +33,21 @@ public class ProductController {
         return productRepository.save(product);
     }
 
-    @RequestMapping(value = "/product/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    Product getProduct(@PathVariable("name") String name) {
-        Optional<Product> product = productRepository.findByName(name);
+    Product getProduct(@PathVariable("id") long id) {
+        Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
             return product.get();
         }
         return null;
     }
 
-    @RequestMapping(value = "/product/{name}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
     public
     @ResponseBody
-    void putProduct(@PathVariable("name") String name, @RequestBody Product product) {
+    void putProduct(@PathVariable("id") long id, @RequestBody Product product) {
         productRepository.save(product);
     }
 }

@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-import java.util.Properties;
 
 /**
  * Created by redi on 14.05.2016.
@@ -22,15 +21,5 @@ public class DevelopmentConfiguration {
     @Bean
     public DataSource getDataSource() {
         return new DriverManagerDataSource(URL, USER, PASSWORD);
-    }
-
-    @Bean
-    public Properties getHibernateProperties() {
-        Properties properties = new Properties();
-        properties.put("hibernate.show_sql", true);
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "create");
-        properties.put("hibernate.show_sql", true);
-        return properties;
     }
 }

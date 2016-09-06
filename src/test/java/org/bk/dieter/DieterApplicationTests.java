@@ -6,7 +6,6 @@ import org.bk.dieter.product.Product;
 import org.bk.dieter.product.ProductRepository;
 import org.bk.dieter.user.Customer;
 import org.bk.dieter.user.CustomerRepository;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +15,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = DieterApplication.class)
@@ -143,10 +140,10 @@ public class DieterApplicationTests {
 
 //        then
         Optional<Journal> journalResult = journalRepository.findById(journal.getId());
-        Optional<Product> productResult = productRepository.findByName("KURA");
+        Optional<Product> productResult = productRepository.findById(product.getId());
         assertThat(journalResult.isPresent()).isTrue();
         assertThat(productResult.isPresent()).isTrue();
-        assertThat(journalResult.get().getProducts()).isEqualTo(new HashSet<>(Collections.singletonList(productResult)));
+        assertThat(journalResult.get().getProducts().contains(product)).isTrue();
         assertThat(journalResult.get().getCreationDate()).isAfterOrEqualTo(currentTimeInUtc);
         assertThat(journalResult.get().getCustomer()).isEqualTo(customer);
         assertThat(productResult.get().getCalories()).isEqualTo(10);
