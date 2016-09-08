@@ -2,6 +2,7 @@ package org.bk.dieter.product;
 
 import lombok.*;
 import org.bk.dieter.journal.Journal;
+import org.springframework.security.access.annotation.Secured;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

@@ -3,6 +3,7 @@ package org.bk.dieter.product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -11,6 +12,7 @@ import java.util.Optional;
  * Created by redi on 05.04.2016.
  */
 @RestController
+@Secured("ROLE_USER")
 public class ProductController {
 
     public static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
