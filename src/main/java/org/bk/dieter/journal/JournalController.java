@@ -17,7 +17,7 @@ import java.util.Optional;
 @Secured("ROLE_USER")
 public class JournalController {
 
-    public static final Logger LOG = LoggerFactory.getLogger(JournalController.class);
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     JournalRepository journalRepository;

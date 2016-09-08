@@ -2,6 +2,8 @@ package org.bk.dieter.configuration.security;
 
 import org.bk.dieter.user.Customer;
 import org.bk.dieter.user.CustomerRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -20,6 +22,8 @@ import java.util.Optional;
 @Service
 public class Users implements UserDetailsService {
 
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     CustomerRepository customerRepository;
 
@@ -30,6 +34,8 @@ public class Users implements UserDetailsService {
         if(!customer.isPresent()){
             return null;
         }
+
+        LOG.info("Loading user [{}]", username);
 
         List<GrantedAuthority> auth = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");

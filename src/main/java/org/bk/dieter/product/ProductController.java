@@ -15,7 +15,7 @@ import java.util.Optional;
 @Secured("ROLE_USER")
 public class ProductController {
 
-    public static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ProductRepository productRepository;
