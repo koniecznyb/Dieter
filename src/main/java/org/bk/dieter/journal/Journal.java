@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.bk.dieter.product.Product;
 import org.bk.dieter.user.Customer;
+import org.springframework.security.access.annotation.Secured;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Table(name = "journal")
+@Secured("ROLE_USER")
 public class Journal {
 
     @Id
