@@ -1,4 +1,4 @@
-package org.bk.dieter.configuration;
+package org.bk.dieter.configuration.development;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,5 @@
-package org.bk.dieter.configuration.security;
+package org.bk.dieter.user;
 
-import org.bk.dieter.user.Customer;
-import org.bk.dieter.user.CustomerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,7 @@ import java.util.Optional;
  * Created by redi on 07.09.16.
  */
 @Service
-public class Users implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
