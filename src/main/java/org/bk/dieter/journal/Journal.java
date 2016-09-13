@@ -19,7 +19,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Table(name = "journal")
-@Secured("ROLE_USER")
 public class Journal {
 
     @Id
