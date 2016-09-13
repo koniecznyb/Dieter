@@ -28,8 +28,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        LOG.info("Looking for username [{}]", username);
         Optional<Customer> customer = customerRepository.findByFirstName(username);
-        if(!customer.isPresent()){
+        LOG.info("Found user [{}]", customer);
+        if (!customer.isPresent()) {
             return null;
         }
 
