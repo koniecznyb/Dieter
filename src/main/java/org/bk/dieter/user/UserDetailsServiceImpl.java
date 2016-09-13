@@ -4,16 +4,12 @@ import org.bk.dieter.role.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -39,8 +35,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         Customer customer = customerOptional.get();
 
-        LOG.info("Loading user [{}]", username);
+        String password = customer.getPassword();
+        Set<Role> roles = customer.getRoles();
 
-        return new User(username, customer.getPassword(), customer.getRoles());
+        LOG.info("Loading user [{}], with password [{}], with roles [{}]", username, password, roles);
+
+        return new User(username, password, roles);
     }
 }
