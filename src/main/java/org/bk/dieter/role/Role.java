@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.bk.dieter.user.Customer;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Getter
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @Column(name = "role_id")
@@ -31,4 +32,9 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     @Setter
     private Set<Customer> customers = new HashSet<>();
+
+    @Override
+    public String getAuthority() {
+        return roleName;
+    }
 }
