@@ -16,7 +16,7 @@ public class DevelopmentConfiguration {
 
     private final String URL = "jdbc:postgresql://localhost:5432/dieter";
     private final String USER = "dieter";
-    private final String PASSWORD = "q1w2e3r4"
+    private final String PASSWORD = "q1w2e3r4";
 
     @Bean
     public DataSource getDataSource() {
