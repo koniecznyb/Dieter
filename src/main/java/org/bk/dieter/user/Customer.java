@@ -1,5 +1,6 @@
 package org.bk.dieter.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -42,6 +43,7 @@ public class Customer {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "customer")
+    @JsonIgnore
     @Setter
     private Set<Journal> journals = new HashSet<>();
 
@@ -64,7 +66,8 @@ public class Customer {
     }
 
     //    TODO passwords
+    @JsonIgnore
+    @Column(name = "password", nullable = false)
     private String password;
-
 }
 

@@ -1,5 +1,6 @@
 package org.bk.dieter.role;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,10 +27,12 @@ public class Role implements GrantedAuthority {
     private Long id;
 
     @Column(name = "role_name", nullable = false)
+    @JsonIgnore
     @Setter
     private String roleName;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     @Setter
     private Set<Customer> customers = new HashSet<>();
 

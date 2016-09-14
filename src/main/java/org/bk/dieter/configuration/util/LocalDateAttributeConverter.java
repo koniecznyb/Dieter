@@ -1,4 +1,4 @@
-package org.bk.dieter.configuration;
+package org.bk.dieter.configuration.util;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Optional<Customer> customerOptional = customerRepository.findByFirstName(username);
         LOG.info("Found user [{}]", customerOptional);
         if (!customerOptional.isPresent()) {
-            return null;
+            throw new UsernameNotFoundException("Not found " + username);
         }
         Customer customer = customerOptional.get();
 
