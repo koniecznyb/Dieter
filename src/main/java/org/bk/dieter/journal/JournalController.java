@@ -1,5 +1,7 @@
 package org.bk.dieter.journal;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,13 @@ import java.util.Optional;
  */
 @RestController
 @Secured("ROLE_USER")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JournalController {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+    private final
+    @NonNull
     JournalRepository journalRepository;
 
     @RequestMapping(value = "/journals", method = RequestMethod.GET)

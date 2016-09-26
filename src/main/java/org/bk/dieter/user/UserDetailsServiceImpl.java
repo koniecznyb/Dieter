@@ -1,5 +1,7 @@
 package org.bk.dieter.user;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.bk.dieter.role.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +19,13 @@ import java.util.Set;
  * Created by redi on 07.09.16.
  */
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+    private final
+    @NonNull
     CustomerRepository customerRepository;
 
     @Override

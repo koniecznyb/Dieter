@@ -1,5 +1,6 @@
 package org.bk.dieter.journal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,7 +13,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Set;
-
 /**
  * Created by redi on 2016-08-07.
  */
@@ -36,6 +36,7 @@ public class Journal {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", nullable = false)
     @Setter
+    @JsonIgnore
     private Customer customer;
 
     @Column(name = "creation_date", nullable = false)

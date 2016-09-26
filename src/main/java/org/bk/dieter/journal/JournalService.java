@@ -1,5 +1,7 @@
 package org.bk.dieter.journal;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.bk.dieter.product.Product;
 import org.bk.dieter.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,15 @@ import java.util.Optional;
  */
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class JournalService {
 
-    @Autowired
+    private final
+    @NonNull
     JournalRepository journalRepository;
 
-    @Autowired
+    private final
+    @NonNull
     ProductRepository productRepository;
 
     public Journal addProductToTheJournal(Journal journal, Product product) {

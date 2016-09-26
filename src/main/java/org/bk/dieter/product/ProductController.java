@@ -1,5 +1,7 @@
 package org.bk.dieter.product;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,14 @@ import java.util.Optional;
  */
 @RestController
 @Secured("ROLE_USER")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ProductController {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final
+    @NonNull
+    ProductRepository productRepository;
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public

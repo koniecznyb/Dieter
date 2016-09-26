@@ -1,5 +1,7 @@
 package org.bk.dieter.user;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,13 @@ import java.util.Optional;
  * Created by redi on 17.05.2016.
  */
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomerController {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+    private final
+    @NonNull
     CustomerRepository customerRepository;
 
     @Secured("ROLE_USER")
@@ -32,14 +36,14 @@ public class CustomerController {
         return null;
     }
 
-    @ExceptionHandler({SQLException.class,DataAccessException.class})
-    @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR, reason="Data access error")
+    @ExceptionHandler({SQLException.class, DataAccessException.class})
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Data access error")
     public void databaseError() {
     }
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public Customer saveCustomer(Customer customer){
+    public Customer saveCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
 }

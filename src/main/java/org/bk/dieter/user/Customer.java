@@ -43,7 +43,6 @@ public class Customer {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "customer")
-    @JsonIgnore
     @Setter
     private Set<Journal> journals = new HashSet<>();
 
