@@ -74,7 +74,7 @@ public class DieterApplicationTests {
         productRepository.save(product);
 
 //        then
-        Optional<Product> result = productRepository.findById(product.getId());
+        Optional<Product> result = productRepository.findByProductId(product.getProductId());
         assertThat(result.isPresent()).isTrue();
         assertThat(result.get().getCalories()).isEqualTo(10);
         assertThat(result.get().getCarbohydrates()).isEqualTo(100);
@@ -104,7 +104,7 @@ public class DieterApplicationTests {
         journalRepository.save(journal);
 
 //        then
-        Optional<Journal> result = journalRepository.findById(journal.getId());
+        Optional<Journal> result = journalRepository.findByJournalId(journal.getJournalId());
         assertThat(result.isPresent()).isTrue();
         assertThat(result.get().getProducts()).isEqualTo(Collections.emptySet());
         assertThat(result.get().getCreationDate()).isAfterOrEqualTo(currentTimeInUtc);
@@ -139,8 +139,8 @@ public class DieterApplicationTests {
         customerRepository.save(customer);
 
 //        then
-        Optional<Journal> journalResult = journalRepository.findById(journal.getId());
-        Optional<Product> productResult = productRepository.findById(product.getId());
+        Optional<Journal> journalResult = journalRepository.findByJournalId(journal.getJournalId());
+        Optional<Product> productResult = productRepository.findByProductId(product.getProductId());
         assertThat(journalResult.isPresent()).isTrue();
         assertThat(productResult.isPresent()).isTrue();
         assertThat(journalResult.get().getProducts().contains(product)).isTrue();

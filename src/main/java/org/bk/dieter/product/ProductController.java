@@ -43,7 +43,7 @@ public class ProductController {
     public
     @ResponseBody
     Product getProduct(@PathVariable("id") long id) {
-        Optional<Product> product = productRepository.findById(id);
+        Optional<Product> product = productRepository.findByProductId(id);
         if (product.isPresent()) {
             return product.get();
         }

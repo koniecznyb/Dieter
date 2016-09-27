@@ -2,7 +2,6 @@ package org.bk.dieter.product;
 
 import lombok.*;
 import org.bk.dieter.journal.Journal;
-import org.springframework.security.access.annotation.Secured;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,13 +15,13 @@ import java.util.Set;
 @Entity
 @Getter
 @Table(name = "product")
-public class Product {
+public class Product{
 
     @Id
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_gen")
     @SequenceGenerator(name = "product_id_gen", sequenceName = "seq_product_id", initialValue = 1, allocationSize = 1)
-    private Long id;
+    private Long productId;
 
     @Column(name = "name", nullable = false)
     @Setter

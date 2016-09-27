@@ -1,5 +1,6 @@
 package org.bk.dieter.journal;
 
+import com.google.common.collect.Lists;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -8,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
  * Created by redi on 2016-08-07.
@@ -30,7 +32,12 @@ public class JournalController {
     public
     @ResponseBody
     Iterable<Journal> getJournals() {
-        return journalRepository.findAll();
+        List<Journal> journalRestObjectList = Lists.newArrayList(journalRepository.findAll());
+
+        journalRestObjectList.forEach(j -> j.add(linkTo(JournalController.class).slash(j.getId()).withSelfRel()));
+        journalRestObjectList.sort((o1, o2) -> o1.getLastModificationDate().compareTo(o2.getLastModificationDate()));
+
+        return journalRestObjectList;
     }
 
     @RequestMapping(value = "/journal", method = RequestMethod.POST)
@@ -45,7 +52,7 @@ public class JournalController {
     public
     @ResponseBody
     Journal getJournal(@PathVariable("name") Long id) {
-        Optional<Journal> Journal = journalRepository.findById(id);
+        Optional<Journal> Journal = journalRepository.findByJournalId(id);
         if (Journal.isPresent()) {
             return Journal.get();
         }

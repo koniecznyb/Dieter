@@ -3,9 +3,9 @@ package org.bk.dieter.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.bk.dieter.journal.Journal;
 import org.bk.dieter.role.Role;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,13 +20,13 @@ import java.util.Set;
 @Entity
 @Getter
 @Table(name = "customer")
-public class Customer {
+public class Customer extends ResourceSupport{
 
     @Id
     @Column(name = "customer_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_gen")
     @SequenceGenerator(name = "customer_id_gen", sequenceName = "seq_customer_id", allocationSize = 1, initialValue = 1)
-    private Long id;
+    private Long customerId;
 
     @Column(name = "first_name", nullable = false)
     @Setter

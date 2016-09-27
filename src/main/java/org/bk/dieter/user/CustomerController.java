@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 /**
  * Created by redi on 17.05.2016.
  */
@@ -29,11 +31,13 @@ public class CustomerController {
     @Secured("ROLE_USER")
     @RequestMapping(value = "/user/{firstName}", method = RequestMethod.GET)
     public Customer getUser(@PathVariable String firstName) {
-        Optional<Customer> user = customerRepository.findByFirstName(firstName);
-        if (user.isPresent()) {
-            return user.get();
+        Optional<Customer> customerOptional = customerRepository.findByFirstName(firstName);
+        if (!customerOptional.isPresent()) {
+            return null;
         }
-        return null;
+        Customer customer = customerOptional.get();
+        customer.add(linkTo(Customer.class).slash(customer.getCustomerId()).withSelfRel());
+        return customer;
     }
 
     @ExceptionHandler({SQLException.class, DataAccessException.class})

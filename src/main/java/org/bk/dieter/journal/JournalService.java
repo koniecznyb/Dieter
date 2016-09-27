@@ -28,7 +28,7 @@ public class JournalService {
     ProductRepository productRepository;
 
     public Journal addProductToTheJournal(Journal journal, Product product) {
-        Optional<Product> productOptional = productRepository.findById(product.getId());
+        Optional<Product> productOptional = productRepository.findByProductId(product.getProductId());
         if (!productOptional.isPresent()) {
             productRepository.save(product);
         }

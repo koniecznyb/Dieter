@@ -12,5 +12,5 @@ import java.util.Set;
 @PreAuthorize("hasRole('ROLE_USER')")
 public interface JournalRepository extends CrudRepository<Journal, Long> {
 
-    Optional<Journal> findById(Long id);
+    Optional<Journal> findByJournalId(Long id);
 }

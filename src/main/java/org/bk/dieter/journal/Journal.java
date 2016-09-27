@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.bk.dieter.product.Product;
 import org.bk.dieter.user.Customer;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.security.access.annotation.Secured;
 
 import javax.persistence.*;
@@ -19,13 +20,13 @@ import java.util.Set;
 @Entity
 @Getter
 @Table(name = "journal")
-public class Journal {
+public class Journal extends ResourceSupport {
 
     @Id
     @Column(name = "journal_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "journal_id_gen")
     @SequenceGenerator(name = "journal_id_gen", sequenceName = "seq_journal_id", allocationSize = 1, initialValue = 1)
-    private Long id;
+    private Long journalId;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(joinColumns = @JoinColumn(name = "journal_id", nullable = false),
