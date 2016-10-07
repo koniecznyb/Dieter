@@ -40,9 +40,11 @@ public class Customer extends ResourceSupport{
     @JoinTable(joinColumns = @JoinColumn(name = "customer_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     @Setter
+    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "customer")
+    @JsonIgnore
     @Setter
     private Set<Journal> journals = new HashSet<>();
 
@@ -51,6 +53,10 @@ public class Customer extends ResourceSupport{
 
     @Column(name = "last_modification_date", nullable = false)
     private LocalDateTime lastModificationDate;
+    //    TODO passwords
+    @JsonIgnore
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @PrePersist
     protected void onPrePersist() {
@@ -63,10 +69,5 @@ public class Customer extends ResourceSupport{
     protected void onPreUpdate() {
         lastModificationDate = ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime();
     }
-
-    //    TODO passwords
-    @JsonIgnore
-    @Column(name = "password", nullable = false)
-    private String password;
 }
 

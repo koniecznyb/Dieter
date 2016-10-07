@@ -40,7 +40,7 @@ public class JournalController {
         return journalRestObjectList;
     }
 
-    @RequestMapping(value = "/journal", method = RequestMethod.POST)
+    @RequestMapping(value = "/journals", method = RequestMethod.POST)
     public
     @ResponseBody
     Journal saveJournal(@RequestBody Journal journal) {
@@ -51,7 +51,7 @@ public class JournalController {
     @RequestMapping(value = "/journal/{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    Journal getJournal(@PathVariable("name") Long id) {
+    Journal getJournal(@PathVariable("id") Long id) {
         Optional<Journal> Journal = journalRepository.findByJournalId(id);
         if (Journal.isPresent()) {
             return Journal.get();

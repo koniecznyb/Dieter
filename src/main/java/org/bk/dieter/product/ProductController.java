@@ -31,7 +31,7 @@ public class ProductController {
         return productRepository.findAll();
     }
 
-    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    @RequestMapping(value = "/products", method = RequestMethod.POST)
     public
     @ResponseBody
     Product saveProduct(@RequestBody Product product) {

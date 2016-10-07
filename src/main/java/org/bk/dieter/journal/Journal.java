@@ -3,11 +3,9 @@ package org.bk.dieter.journal;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.bk.dieter.product.Product;
 import org.bk.dieter.user.Customer;
 import org.springframework.hateoas.ResourceSupport;
-import org.springframework.security.access.annotation.Secured;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -27,6 +25,10 @@ public class Journal extends ResourceSupport {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "journal_id_gen")
     @SequenceGenerator(name = "journal_id_gen", sequenceName = "seq_journal_id", allocationSize = 1, initialValue = 1)
     private Long journalId;
+
+    @Column(name = "journal_title", nullable = false)
+    @Setter
+    private String journalTitle;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(joinColumns = @JoinColumn(name = "journal_id", nullable = false),

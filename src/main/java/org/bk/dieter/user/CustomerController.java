@@ -2,6 +2,7 @@ package org.bk.dieter.user;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.bk.dieter.journal.Journal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,8 @@ public class CustomerController {
             return null;
         }
         Customer customer = customerOptional.get();
-        customer.add(linkTo(Customer.class).slash(customer.getCustomerId()).withSelfRel());
+        customer.add(linkTo(Customer.class).slash("user/" + customer.getFirstName()).withSelfRel());
+        customer.add(linkTo(Journal.class).slash("user/" + customer.getFirstName() + "/journals").withRel("journals"));
         return customer;
     }
 
