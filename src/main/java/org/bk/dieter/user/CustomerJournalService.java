@@ -28,6 +28,7 @@ public class CustomerJournalService {
         Set<Journal> customerJournals = customer.getJournals();
         journal.setCustomer(customer);
         customerJournals.add(journal);
+        journalRepository.save(journal);
         customerRepository.save(customer);
         return customer;
     }
