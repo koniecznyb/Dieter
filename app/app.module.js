@@ -8,19 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var forms_1 = require('@angular/forms');
-var app_component_1 = require('./app.component');
-var product_details_component_1 = require('./product.details.component');
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var forms_1 = require("@angular/forms");
+var product_component_1 = require("./product.component");
+var product_details_component_1 = require("./product-details.component");
+var app_component_1 = require("./app.component");
+var product_service_1 = require("./product.service");
+var dashboard_component_1 = require("./dashboard.component");
+var app_routing_module_1 = require("./app-routing.module");
+var http_1 = require("@angular/http");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-            declarations: [app_component_1.AppComponent, product_details_component_1.ProductDetailsComponent],
-            bootstrap: [app_component_1.AppComponent]
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, app_routing_module_1.AppRoutingModule, http_1.HttpModule],
+            declarations: [app_component_1.AppComponent, product_component_1.ProductComponent, product_details_component_1.ProductDetailsComponent, dashboard_component_1.DashboardComponent],
+            bootstrap: [app_component_1.AppComponent],
+            providers: [product_service_1.ProductService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);

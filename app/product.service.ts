@@ -5,7 +5,11 @@ import {Product} from "./product";
 
 @Injectable()
 export class ProductService {
-    getProducts(): Product[] {
-        return PRODUCTS;
+    getProducts(): Promise<Product[]> {
+        return Promise.resolve(PRODUCTS);
+    }
+
+    getProduct(number: number): Promise<Product> {
+        return this.getProducts().then(products => products.find(product => product.id === number));
     }
 }
