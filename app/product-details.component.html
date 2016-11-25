@@ -1,0 +1,13 @@
+<div *ngIf="product">
+    <h2>{{product.name}}</h2>
+    <div>
+        <label>id: </label>
+        {{product.id}}
+    </div>
+    <div>
+        <label>title: </label>
+        <input [(ngModel)]="product.calories"/>
+    </div>
+</div>
+
+<button (click)="goBack()">Back</button>
