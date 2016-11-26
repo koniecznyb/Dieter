@@ -47,6 +47,7 @@ public class DieterApplicationTests {
         Customer customer = new Customer();
         customer.setFirstName("Bart");
         customer.setLastName("Januszowski");
+        customer.setPassword("password");
 
 //        when
         customerRepository.save(customer);
@@ -93,6 +94,7 @@ public class DieterApplicationTests {
         Customer customer = new Customer();
         customer.setFirstName("Bart");
         customer.setLastName("Json");
+        customer.setPassword("password");
 
         customerRepository.save(customer);
 
@@ -120,6 +122,7 @@ public class DieterApplicationTests {
         Customer customer = new Customer();
         customer.setFirstName("Json");
         customer.setLastName("Derulo");
+        customer.setPassword("password");
 
         Journal journal = new Journal();
         journal.setCustomer(customer);

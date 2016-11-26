@@ -53,9 +53,9 @@ public class Customer extends ResourceSupport{
 
     @Column(name = "last_modification_date", nullable = false)
     private LocalDateTime lastModificationDate;
-    //    TODO passwords
     @JsonIgnore
     @Column(name = "password", nullable = false)
+    @Setter
     private String password;
 
     @PrePersist
