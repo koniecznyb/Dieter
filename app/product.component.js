@@ -18,7 +18,7 @@ var ProductComponent = (function () {
         this.title = 'Products list';
     }
     ProductComponent.prototype.goToDetails = function () {
-        this.router.navigate(["/product", this.selectedProduct.id]);
+        this.router.navigate(["/product", this.selectedProduct.productId]);
     };
     ProductComponent.prototype.ngOnInit = function () {
         this.getProducts();

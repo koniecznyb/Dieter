@@ -19,7 +19,7 @@ export class ProductComponent implements OnInit {
     }
 
     goToDetails(): void{
-        this.router.navigate(["/product", this.selectedProduct.id]);
+        this.router.navigate(["/product", this.selectedProduct.productId]);
     }
 
     ngOnInit(): void {

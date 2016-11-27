@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var product_1 = require("./product");
-var router_1 = require('@angular/router');
-var common_1 = require('@angular/common');
+var router_1 = require("@angular/router");
+var common_1 = require("@angular/common");
 var product_service_1 = require("./product.service");
-require('rxjs/add/operator/switchMap');
+require("rxjs/add/operator/switchMap");
 var ProductDetailsComponent = (function () {
     function ProductDetailsComponent(productService, route, location) {
         this.productService = productService;
@@ -23,11 +23,16 @@ var ProductDetailsComponent = (function () {
     ProductDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params
-            .switchMap(function (params) { return _this.productService.getProduct(+params['id']); })
+            .switchMap(function (params) { return _this.productService.getProduct(+params['productId']); })
             .subscribe(function (product) { return _this.product = product; });
     };
     ProductDetailsComponent.prototype.goBack = function () {
         this.location.back();
+    };
+    ProductDetailsComponent.prototype.save = function () {
+        var _this = this;
+        this.productService.update(this.product)
+            .then(function () { return _this.goBack(); });
     };
     __decorate([
         core_1.Input(), 

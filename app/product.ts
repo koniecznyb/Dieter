@@ -1,5 +1,11 @@
 export class Product {
-    id: number;
+    productId: number;
     name: string;
     calories: number;
+    carbohydrates: number;
+    fats: number;
+    proteins: number;
+    creationDate: Date;
+    lastModificationDate: Date;
+    journals: string;
 }

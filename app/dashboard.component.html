@@ -1,6 +1,6 @@
 <h2>Dashboard</h2>
 <div class="grid grid-pad">
-    <a *ngFor="let product of products" [routerLink]="['/product', product.id]" class="col-1-4">
+    <a *ngFor="let product of products" [routerLink]="['/product', product.productId]" class="col-1-4">
         <div class="module product">
             <h4>{{product.name}}</h4>
         </div>

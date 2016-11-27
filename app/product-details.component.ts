@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Product} from "./product";
-import {ActivatedRoute, Params} from '@angular/router';
-import {Location} from '@angular/common';
+import {ActivatedRoute, Params} from "@angular/router";
+import {Location} from "@angular/common";
 import {ProductService} from "./product.service";
-import 'rxjs/add/operator/switchMap';
+import "rxjs/add/operator/switchMap";
 
 @Component({
     moduleId: module.id,
@@ -12,26 +12,30 @@ import 'rxjs/add/operator/switchMap';
     styleUrls: ['product-details.component.css']
 })
 
-export class ProductDetailsComponent implements OnInit{
+export class ProductDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.productService.getProduct(+params['id']))
+            .switchMap((params: Params) => this.productService.getProduct(+params['productId']))
             .subscribe(product => this.product = product);
     }
 
-    goBack() : void {
+    goBack(): void {
         this.location.back();
+    }
+
+    save(): void {
+        this.productService.update(this.product)
+            .then(() => this.goBack());
     }
 
     @Input()
     product: Product;
 
-    constructor(
-        private productService: ProductService,
-        private route: ActivatedRoute,
-        private location: Location
-    ) { }
+    constructor(private productService: ProductService,
+                private route: ActivatedRoute,
+                private location: Location) {
+    }
 
 
 }
