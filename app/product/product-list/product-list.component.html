@@ -1,7 +1,10 @@
 <h2>{{title}}</h2>
+<button (click)="goToAddNew()">Add New</button>
 <ul class="products">
     <li *ngFor="let product of products" (click)="onSelect(product)" [class.selected]="product === selectedProduct">
-        <span class="product">{{product.productId}}</span> {{product.name}}
+        <span class="product">{{product.productId}}</span>
+        <span>{{product.name}}</span>
+        <button class="delete" (click)="delete(product); $event.stopPropagation()">x</button>
     </li>
 </ul>
 <div *ngIf="selectedProduct">

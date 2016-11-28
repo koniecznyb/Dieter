@@ -48,4 +48,16 @@ export class ProductService {
     getProduct(number: number): Promise<Product> {
         return this.getProducts().then(products => products.find(product => product.productId === number));
     }
+
+    deleteProduct(product: Product): Promise<Product> {
+        const url = `${this.productsUrl}/product/${product.productId}`;
+
+        let headers = new Headers();
+        this.addAutorizationHeader(headers);
+
+        return this.http.delete(url, {headers: headers})
+            .toPromise()
+            .then(() => product)
+            .catch(this.handleError);
+    }
 }

@@ -46,6 +46,15 @@ var ProductService = (function () {
     ProductService.prototype.getProduct = function (number) {
         return this.getProducts().then(function (products) { return products.find(function (product) { return product.productId === number; }); });
     };
+    ProductService.prototype.deleteProduct = function (product) {
+        var url = this.productsUrl + "/product/" + product.productId;
+        var headers = new http_1.Headers();
+        this.addAutorizationHeader(headers);
+        return this.http.delete(url, { headers: headers })
+            .toPromise()
+            .then(function () { return product; })
+            .catch(this.handleError);
+    };
     ProductService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
-import {Product} from "./product";
-import {ProductService} from "./product.service";
+import {Product} from "../product";
+import {ProductService} from "../product.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -30,7 +30,20 @@ export class ProductComponent implements OnInit {
         this.productService.getProducts().then(productsResult => this.products = productsResult);
     }
 
+    goToAddNew(): void{
+        this.router.navigate(["/product/new"]);
+    }
+
     onSelect(product: Product): void {
         this.selectedProduct = product;
+    }
+
+    delete(product: Product): void{
+        this.productService
+            .deleteProduct(product)
+            .then(() => this.products = this.products.filter(p => p !== product));
+        if(this.selectedProduct === product){
+            this.selectedProduct = null;
+        }
     }
 }

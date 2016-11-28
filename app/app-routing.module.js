@@ -9,14 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var router_1 = require("@angular/router");
-var product_component_1 = require("./product.component");
-var dashboard_component_1 = require("./dashboard.component");
-var product_details_component_1 = require("./product-details.component");
+var product_list_component_1 = require("./product/product-list/product-list.component");
+var dashboard_component_1 = require("./dashboard/dashboard.component");
+var product_details_component_1 = require("./product/product-details/product-details.component");
 var core_1 = require("@angular/core");
+var product_new_component_1 = require("./product/product-new/product-new.component");
 var routes = [
-    { path: 'products', component: product_component_1.ProductComponent },
+    { path: 'products', component: product_list_component_1.ProductComponent },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+    { path: 'product/new', component: product_new_component_1.NewProductComponent },
     { path: 'product/:productId', component: product_details_component_1.ProductDetailsComponent }
 ];
 var AppRoutingModule = (function () {

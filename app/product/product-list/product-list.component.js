@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var product_service_1 = require("./product.service");
+var product_service_1 = require("../product.service");
 var router_1 = require("@angular/router");
 var ProductComponent = (function () {
     function ProductComponent(productService, router) {
@@ -27,8 +27,20 @@ var ProductComponent = (function () {
         var _this = this;
         this.productService.getProducts().then(function (productsResult) { return _this.products = productsResult; });
     };
+    ProductComponent.prototype.goToAddNew = function () {
+        this.router.navigate(["/product/new"]);
+    };
     ProductComponent.prototype.onSelect = function (product) {
         this.selectedProduct = product;
+    };
+    ProductComponent.prototype.delete = function (product) {
+        var _this = this;
+        this.productService
+            .deleteProduct(product)
+            .then(function () { return _this.products = _this.products.filter(function (p) { return p !== product; }); });
+        if (this.selectedProduct === product) {
+            this.selectedProduct = null;
+        }
     };
     ProductComponent = __decorate([
         core_1.Component({
@@ -42,4 +54,4 @@ var ProductComponent = (function () {
     return ProductComponent;
 }());
 exports.ProductComponent = ProductComponent;
-//# sourceMappingURL=product.component.js.map
+//# sourceMappingURL=product-list.component.js.map
