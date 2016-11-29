@@ -19,30 +19,34 @@ import java.util.Optional;
 public class ProductController {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
-
-    private final
     @NonNull
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public
     @ResponseBody
-    Iterable<Product> product() {
+    public Iterable<Product> product() {
         return productRepository.findAll();
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public
+    @RequestMapping(value = "/products", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    Product saveProduct(@RequestBody Product product) {
+    public ProductDTO saveProduct(@RequestBody ProductDTO productDTO) {
+        Product product = new Product();
+        product.setCalories(productDTO.getCalories());
+        product.setCarbohydrates(productDTO.getCarbohydrates());
+        product.setFats(productDTO.getFats());
+        product.setProteins(productDTO.getProteins());
+        product.setName(productDTO.getName());
+
         LOG.info("saving product: " + product);
-        return productRepository.save(product);
+
+        productRepository.save(product);
+        return productDTO;
     }
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
-    public
     @ResponseBody
-    Product getProduct(@PathVariable("id") long id) {
+    public Product getProduct(@PathVariable("id") long id) {
         Optional<Product> product = productRepository.findByProductId(id);
         if (product.isPresent()) {
             return product.get();
@@ -50,10 +54,17 @@ public class ProductController {
         return null;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/product/{id}", method = RequestMethod.PUT)
-    public
     @ResponseBody
-    void putProduct(@PathVariable("id") long id, @RequestBody Product product) {
+    public void putProduct(@PathVariable("id") long id, @RequestBody Product product) {
         productRepository.save(product);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteProduct(@PathVariable("id") long id) {
+        productRepository.delete(id);
     }
 }
