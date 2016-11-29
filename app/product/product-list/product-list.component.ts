@@ -6,8 +6,8 @@ import {Router} from "@angular/router";
 @Component({
     selector: 'products',
     moduleId: module.id,
-    templateUrl: 'product.component.html',
-    styleUrls: ['product.component.css']
+    templateUrl: 'product-list.component.html',
+    styleUrls: ['product-list.component.css']
 })
 
 export class ProductComponent implements OnInit {

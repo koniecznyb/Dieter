@@ -46,8 +46,8 @@ var ProductComponent = (function () {
         core_1.Component({
             selector: 'products',
             moduleId: module.id,
-            templateUrl: 'product.component.html',
-            styleUrls: ['product.component.css']
+            templateUrl: 'product-list.component.html',
+            styleUrls: ['product-list.component.css']
         }), 
         __metadata('design:paramtypes', [product_service_1.ProductService, router_1.Router])
     ], ProductComponent);

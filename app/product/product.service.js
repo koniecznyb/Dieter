@@ -55,6 +55,16 @@ var ProductService = (function () {
             .then(function () { return product; })
             .catch(this.handleError);
     };
+    ProductService.prototype.addProduct = function (product) {
+        var headers = new http_1.Headers();
+        this.addAutorizationHeader(headers);
+        headers.append("Content-Type", "application/json");
+        var url = this.productsUrl + "/products";
+        return this.http.post(url, JSON.stringify(product), { headers: headers })
+            .toPromise()
+            .then(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     ProductService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

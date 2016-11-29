@@ -15,6 +15,7 @@ export class ProductService {
         headers.append("Authorization", "Basic " + btoa("admin" + ":" + "password"));
     }
 
+
     update(product: Product): Promise<Product> {
         const url = `${this.productsUrl}/product/${product.productId}`;
 
@@ -40,7 +41,7 @@ export class ProductService {
             .catch(this.handleError)
     }
 
-    handleError(error: any): void {
+    handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
@@ -58,6 +59,18 @@ export class ProductService {
         return this.http.delete(url, {headers: headers})
             .toPromise()
             .then(() => product)
+            .catch(this.handleError);
+    }
+
+    addProduct(product: Product) {
+        let headers = new Headers();
+        this.addAutorizationHeader(headers);
+        headers.append("Content-Type", "application/json");
+
+        let url = `${this.productsUrl}/products`;
+        return this.http.post(url, JSON.stringify(product), {headers: headers})
+            .toPromise()
+            .then(res => res.json())
             .catch(this.handleError);
     }
 }
