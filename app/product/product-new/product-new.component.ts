@@ -1,6 +1,9 @@
 import {Component} from "@angular/core";
 import {Product} from "../product";
 import {ProductService} from "../product.service";
+import {ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
+
 
 @Component({
     moduleId: module.id,
@@ -11,19 +14,21 @@ import {ProductService} from "../product.service";
 
 export class NewProductComponent{
 
-    constructor(private productService: ProductService){
+    constructor(private productService: ProductService, private route: ActivatedRoute, private location: Location){
 
     }
 
-    addProduct(productName: String, calories: Number, fats: Number, carbohydrates: Number, proteins: Number): void{
+    addProduct(productName: string, calories: number, fats: number, carbohydrates: number, proteins: number): void{
         let product = new Product();
         product.name = productName;
         product.calories = calories;
         product.carbohydrates = carbohydrates;
         product.fats = fats;
         product.proteins = proteins;
-        console.log(product);
-        console.log(calories);
         this.productService.addProduct(product);
+    }
+
+    goBack(): void{
+        this.location.back();
     }
 }

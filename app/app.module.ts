@@ -9,10 +9,11 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {HttpModule} from "@angular/http";
 import {NewProductComponent} from "./product/product-new/product-new.component";
+import {ProductSearchComponent} from "./product/product-search/product-search.component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, AppRoutingModule, HttpModule],
-    declarations: [AppComponent, ProductComponent, ProductDetailsComponent, DashboardComponent, NewProductComponent],
+    declarations: [AppComponent, ProductComponent, ProductDetailsComponent, DashboardComponent, NewProductComponent, ProductSearchComponent],
     bootstrap: [AppComponent],
     providers: [ProductService]
 })

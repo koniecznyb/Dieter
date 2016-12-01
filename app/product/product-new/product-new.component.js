@@ -11,9 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var product_1 = require("../product");
 var product_service_1 = require("../product.service");
+var router_1 = require("@angular/router");
+var common_1 = require("@angular/common");
 var NewProductComponent = (function () {
-    function NewProductComponent(productService) {
+    function NewProductComponent(productService, route, location) {
         this.productService = productService;
+        this.route = route;
+        this.location = location;
     }
     NewProductComponent.prototype.addProduct = function (productName, calories, fats, carbohydrates, proteins) {
         var product = new product_1.Product();
@@ -22,9 +26,10 @@ var NewProductComponent = (function () {
         product.carbohydrates = carbohydrates;
         product.fats = fats;
         product.proteins = proteins;
-        console.log(product);
-        console.log(calories);
         this.productService.addProduct(product);
+    };
+    NewProductComponent.prototype.goBack = function () {
+        this.location.back();
     };
     NewProductComponent = __decorate([
         core_1.Component({
@@ -33,7 +38,7 @@ var NewProductComponent = (function () {
             styleUrls: ["product-new.component.css"],
             selector: 'product-new'
         }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService])
+        __metadata('design:paramtypes', [product_service_1.ProductService, router_1.ActivatedRoute, common_1.Location])
     ], NewProductComponent);
     return NewProductComponent;
 }());

@@ -19,13 +19,14 @@ var dashboard_component_1 = require("./dashboard/dashboard.component");
 var app_routing_module_1 = require("./app-routing.module");
 var http_1 = require("@angular/http");
 var product_new_component_1 = require("./product/product-new/product-new.component");
+var product_search_component_1 = require("./product/product-search/product-search.component");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, app_routing_module_1.AppRoutingModule, http_1.HttpModule],
-            declarations: [app_component_1.AppComponent, product_list_component_1.ProductComponent, product_details_component_1.ProductDetailsComponent, dashboard_component_1.DashboardComponent, product_new_component_1.NewProductComponent],
+            declarations: [app_component_1.AppComponent, product_list_component_1.ProductComponent, product_details_component_1.ProductDetailsComponent, dashboard_component_1.DashboardComponent, product_new_component_1.NewProductComponent, product_search_component_1.ProductSearchComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [product_service_1.ProductService]
         }), 

@@ -12,7 +12,7 @@ export class ProductSearchService {
     search(term: String): Observable<Product[]> {
         return this.http
             .get('app/products/?name=${term}')
-            .map((r: Response) -> r.json() as Product[]);
+            .map((r: Response) => r.json() as Product[]);
     }
 
 }

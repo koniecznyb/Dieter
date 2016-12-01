@@ -1,5 +1,6 @@
 <h2>{{title}}</h2>
 <button (click)="goToAddNew()">Add New</button>
+<product-search></product-search>
 <ul class="products">
     <li *ngFor="let product of products" (click)="onSelect(product)" [class.selected]="product === selectedProduct">
         <span class="product">{{product.productId}}</span>

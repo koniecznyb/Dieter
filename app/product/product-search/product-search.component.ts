@@ -1,7 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {Product} from "../product";
-import {Observable, Subject} from "rxjs";
 import {ProductSearchService} from "./product-search.service";
+import { Observable }        from 'rxjs/Observable';
+import { Subject }           from 'rxjs/Subject';
 
 @Component({
     moduleId: module.id,
@@ -12,7 +13,7 @@ import {ProductSearchService} from "./product-search.service";
 
 export class ProductSearchComponent implements OnInit{
 
-    products: Observable<Product>;
+    products: Observable<Product[]>;
     private searchTerms = new Subject<string>();
 
     constructor(private productSearchService: ProductSearchService) {
