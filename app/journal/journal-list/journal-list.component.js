@@ -8,21 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
-        this.title = "Dieter";
+var core_1 = require("@angular/core");
+var JournalListComponent = (function () {
+    function JournalListComponent() {
     }
-    AppComponent = __decorate([
+    JournalListComponent = __decorate([
         core_1.Component({
-            selector: 'app',
+            selector: 'journal-list',
             moduleId: module.id,
-            templateUrl: "app.component.html",
-            styleUrls: ['app.component.css']
+            templateUrl: "journal-list.component.html",
+            styleUrls: ['journal-list.component.css']
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], JournalListComponent);
+    return JournalListComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.JournalListComponent = JournalListComponent;
+//# sourceMappingURL=journal-list.component.js.map

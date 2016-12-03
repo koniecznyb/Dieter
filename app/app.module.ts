@@ -11,10 +11,18 @@ import {AppRoutingModule} from "./app-routing.module";
 import {HttpModule} from "@angular/http";
 import {NewProductComponent} from "./product/product-new/product-new.component";
 import {ProductSearchComponent} from "./product/product-search/product-search.component";
+import {JournalListComponent} from "./journal/journal-list/journal-list.component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, AppRoutingModule, HttpModule],
-    declarations: [AppComponent, ProductComponent, ProductDetailsComponent, DashboardComponent, NewProductComponent, ProductSearchComponent],
+    declarations: [AppComponent,
+        ProductComponent,
+        ProductDetailsComponent,
+        DashboardComponent,
+        NewProductComponent,
+        ProductSearchComponent,
+        JournalListComponent
+    ],
     bootstrap: [AppComponent],
     providers: [ProductService]
 })

@@ -14,12 +14,14 @@ var dashboard_component_1 = require("./dashboard/dashboard.component");
 var product_details_component_1 = require("./product/product-details/product-details.component");
 var core_1 = require("@angular/core");
 var product_new_component_1 = require("./product/product-new/product-new.component");
+var journal_list_component_1 = require("./journal/journal-list/journal-list.component");
 var routes = [
     { path: 'products', component: product_list_component_1.ProductComponent },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'product/new', component: product_new_component_1.NewProductComponent },
-    { path: 'product/:productId', component: product_details_component_1.ProductDetailsComponent }
+    { path: 'product/:productId', component: product_details_component_1.ProductDetailsComponent },
+    { path: 'journals', component: journal_list_component_1.JournalListComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
