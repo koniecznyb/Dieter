@@ -13,11 +13,6 @@ var product_search_service_1 = require("./product-search.service");
 var router_1 = require("@angular/router");
 var Observable_1 = require("rxjs/Observable");
 var Subject_1 = require("rxjs/Subject");
-require('rxjs/add/operator/debounceTime');
-require('rxjs/add/operator/distinctUntilChanged');
-require('rxjs/add/operator/switchMap');
-require('rxjs/add/operator/catch');
-require('rxjs/add/operator/map');
 var ProductSearchComponent = (function () {
     function ProductSearchComponent(productSearchService, router) {
         this.productSearchService = productSearchService;
