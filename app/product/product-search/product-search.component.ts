@@ -1,22 +1,30 @@
 import {Component, OnInit} from "@angular/core";
 import {Product} from "../product";
 import {ProductSearchService} from "./product-search.service";
-import { Observable }        from 'rxjs/Observable';
-import { Subject }           from 'rxjs/Subject';
+import {Router} from "@angular/router";
+import {Observable} from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 @Component({
     moduleId: module.id,
     selector: 'product-search',
     templateUrl: 'product-search.component.html',
-    styleUrls: ['product-search.component.css']
+    styleUrls: ['product-search.component.css'],
+    providers: [ProductSearchService]
 })
 
-export class ProductSearchComponent implements OnInit{
+export class ProductSearchComponent implements OnInit {
 
     products: Observable<Product[]>;
     private searchTerms = new Subject<string>();
 
-    constructor(private productSearchService: ProductSearchService) {
+    constructor(private productSearchService: ProductSearchService,
+                private router: Router) {
     }
 
     search(term: string): void {
@@ -32,5 +40,10 @@ export class ProductSearchComponent implements OnInit{
                 console.log(error);
                 return Observable.of<Product[]>([]);
             });
+    }
+
+    goToDetail(product: Product): void {
+        let link = ['/product', product.productId];
+        this.router.navigate(link);
     }
 }

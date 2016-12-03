@@ -10,11 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var product_search_service_1 = require("./product-search.service");
-var Observable_1 = require('rxjs/Observable');
-var Subject_1 = require('rxjs/Subject');
+var router_1 = require("@angular/router");
+var Observable_1 = require("rxjs/Observable");
+var Subject_1 = require("rxjs/Subject");
+require('rxjs/add/operator/debounceTime');
+require('rxjs/add/operator/distinctUntilChanged');
+require('rxjs/add/operator/switchMap');
+require('rxjs/add/operator/catch');
+require('rxjs/add/operator/map');
 var ProductSearchComponent = (function () {
-    function ProductSearchComponent(productSearchService) {
+    function ProductSearchComponent(productSearchService, router) {
         this.productSearchService = productSearchService;
+        this.router = router;
         this.searchTerms = new Subject_1.Subject();
     }
     ProductSearchComponent.prototype.search = function (term) {
@@ -31,14 +38,19 @@ var ProductSearchComponent = (function () {
             return Observable_1.Observable.of([]);
         });
     };
+    ProductSearchComponent.prototype.goToDetail = function (product) {
+        var link = ['/product', product.productId];
+        this.router.navigate(link);
+    };
     ProductSearchComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'product-search',
             templateUrl: 'product-search.component.html',
-            styleUrls: ['product-search.component.css']
+            styleUrls: ['product-search.component.css'],
+            providers: [product_search_service_1.ProductSearchService]
         }), 
-        __metadata('design:paramtypes', [product_search_service_1.ProductSearchService])
+        __metadata('design:paramtypes', [product_search_service_1.ProductSearchService, router_1.Router])
     ], ProductSearchComponent);
     return ProductSearchComponent;
 }());
