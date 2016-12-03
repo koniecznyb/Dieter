@@ -10,7 +10,7 @@ import java.util.Optional;
  */
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
-    List<Product> findByName(String name);
+    List<Product> findByNameIgnoreCase(String name);
 
     Optional<Product> findByProductId(Long productId);
 

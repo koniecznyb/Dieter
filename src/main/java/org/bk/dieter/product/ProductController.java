@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -24,8 +25,11 @@ public class ProductController {
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Product> product() {
-        return productRepository.findAll();
+    public Iterable<Product> getProducts(@RequestParam(required = false) String name) {
+        if(StringUtils.isEmpty(name)){
+            return productRepository.findAll();
+        }
+        return productRepository.findByNameIgnoreCase(name);
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST, consumes = "application/json")
