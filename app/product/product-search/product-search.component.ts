@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
-import {Product} from "../product";
-import {ProductSearchService} from "./product-search.service";
+import {Product} from "../../_model/product";
+import {ProductSearchService} from "../../_service/product-search.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";

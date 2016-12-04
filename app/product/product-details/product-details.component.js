@@ -9,10 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var product_1 = require("../product");
+var product_1 = require("../../_model/product");
 var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
-var product_service_1 = require("../product.service");
+var product_service_1 = require("../../_service/product.service");
 require("rxjs/add/operator/switchMap");
 var ProductDetailsComponent = (function () {
     function ProductDetailsComponent(productService, route, location) {

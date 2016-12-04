@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {Product} from "../product";
-import {ProductService} from "../product.service";
+import {Product} from "../../_model/product";
+import {ProductService} from "../../_service/product.service";
 import {Router} from "@angular/router";
-import {ProductSearchService} from "../product-search/product-search.service";
+import {ProductSearchService} from "../../_service/product-search.service";
 
 @Component({
     selector: 'products',
