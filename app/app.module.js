@@ -22,6 +22,8 @@ var http_1 = require("@angular/http");
 var product_new_component_1 = require("./product/product-new/product-new.component");
 var product_search_component_1 = require("./product/product-search/product-search.component");
 var journal_list_component_1 = require("./journal/journal-list/journal-list.component");
+var login_component_1 = require("./login/login.component");
+var signup_component_1 = require("./signup/signup.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -34,7 +36,9 @@ var AppModule = (function () {
                 dashboard_component_1.DashboardComponent,
                 product_new_component_1.NewProductComponent,
                 product_search_component_1.ProductSearchComponent,
-                journal_list_component_1.JournalListComponent
+                journal_list_component_1.JournalListComponent,
+                login_component_1.LoginComponent,
+                signup_component_1.SignupComponent
             ],
             bootstrap: [app_component_1.AppComponent],
             providers: [product_service_1.ProductService]

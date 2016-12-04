@@ -5,6 +5,8 @@ import {ProductDetailsComponent} from "./product/product-details/product-details
 import {NgModule} from "@angular/core";
 import {NewProductComponent} from "./product/product-new/product-new.component";
 import {JournalListComponent} from "./journal/journal-list/journal-list.component";
+import {SignupComponent} from "./signup/signup.component";
+import {LoginComponent} from "./login/login.component";
 
 const routes: Routes = [
     {path: 'products', component: ProductComponent},
@@ -12,7 +14,10 @@ const routes: Routes = [
     {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
     {path: 'product/new', component: NewProductComponent},
     {path: 'product/:productId', component: ProductDetailsComponent},
-    {path: 'journals', component: JournalListComponent}
+    {path: 'journals', component: JournalListComponent},
+    {path: 'signup', component: SignupComponent},
+    {path: 'login', component: LoginComponent}
+
 ];
 
 @NgModule({

@@ -12,6 +12,8 @@ import {HttpModule} from "@angular/http";
 import {NewProductComponent} from "./product/product-new/product-new.component";
 import {ProductSearchComponent} from "./product/product-search/product-search.component";
 import {JournalListComponent} from "./journal/journal-list/journal-list.component";
+import {LoginComponent} from "./login/login.component";
+import {SignupComponent} from "./signup/signup.component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, AppRoutingModule, HttpModule],
@@ -21,7 +23,9 @@ import {JournalListComponent} from "./journal/journal-list/journal-list.componen
         DashboardComponent,
         NewProductComponent,
         ProductSearchComponent,
-        JournalListComponent
+        JournalListComponent,
+        LoginComponent,
+        SignupComponent
     ],
     bootstrap: [AppComponent],
     providers: [ProductService]

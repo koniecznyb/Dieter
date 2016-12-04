@@ -15,13 +15,17 @@ var product_details_component_1 = require("./product/product-details/product-det
 var core_1 = require("@angular/core");
 var product_new_component_1 = require("./product/product-new/product-new.component");
 var journal_list_component_1 = require("./journal/journal-list/journal-list.component");
+var signup_component_1 = require("./signup/signup.component");
+var login_component_1 = require("./login/login.component");
 var routes = [
     { path: 'products', component: product_list_component_1.ProductComponent },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'product/new', component: product_new_component_1.NewProductComponent },
     { path: 'product/:productId', component: product_details_component_1.ProductDetailsComponent },
-    { path: 'journals', component: journal_list_component_1.JournalListComponent }
+    { path: 'journals', component: journal_list_component_1.JournalListComponent },
+    { path: 'signup', component: signup_component_1.SignupComponent },
+    { path: 'login', component: login_component_1.LoginComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
