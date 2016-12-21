@@ -1,0 +1,9 @@
+<h2>Journals</h2>
+<h3>List of your journals</h3>
+
+<ul class="journals">
+    <li *ngFor="let journal of journals">
+        <span class="journal">{{journal.journalId}}</span>
+        <span>{{journal.date}}</span>
+    </li>
+</ul>

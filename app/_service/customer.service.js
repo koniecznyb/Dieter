@@ -10,25 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var JournalService = (function () {
-    function JournalService(http) {
+var CustomerService = (function () {
+    function CustomerService(http) {
         this.http = http;
-        this.url = "http://localhost:8080";
     }
-    // getProducts(): Product[]{
-    //     return http.get()
-    // }
-    JournalService.prototype.getJournals = function () {
-        var currentUsername = JSON.parse(localStorage.getItem("currentUser")).name;
-        return this.http.get(this.url + "/user/" + currentUsername + "/journals", { withCredentials: true })
-            .toPromise()
-            .then(function (response) { return response.json(); });
+    CustomerService.prototype.getCurrentCustomer = function () {
+        var currentCustomer = localStorage.getItem("currentUser");
+        if (currentCustomer) {
+            return http.get("");
+        }
     };
-    JournalService = __decorate([
+    CustomerService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], JournalService);
-    return JournalService;
+    ], CustomerService);
+    return CustomerService;
 }());
-exports.JournalService = JournalService;
-//# sourceMappingURL=journal.service.js.map
+exports.CustomerService = CustomerService;
+//# sourceMappingURL=customer.service.js.map

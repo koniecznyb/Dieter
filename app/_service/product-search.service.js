@@ -17,10 +17,8 @@ var ProductSearchService = (function () {
     }
     ProductSearchService.prototype.search = function (term) {
         var url = this.productsUrl + "/products?name=" + term;
-        var headers = new http_1.Headers;
-        headers.append("Authorization", "Basic " + btoa("admin" + ":" + "password"));
         return this.http
-            .get(url, { headers: headers })
+            .get(url)
             .map(function (r) { return r.json(); });
     };
     ProductSearchService = __decorate([

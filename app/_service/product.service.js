@@ -16,27 +16,36 @@ var ProductService = (function () {
         this.http = http;
         this.productsUrl = "http://localhost:8080";
     }
-    ProductService.prototype.addAutorizationHeader = function (headers) {
-        headers.append("Authorization", "Basic " + btoa("admin" + ":" + "password"));
-    };
     ProductService.prototype.update = function (product) {
         var url = this.productsUrl + "/product/" + product.productId;
         var headers = new http_1.Headers();
-        this.addAutorizationHeader(headers);
         headers.append("Content-Type", "application/json");
         return this.http
-            .put(url, JSON.stringify(product), { headers: headers })
+            .put(url, JSON.stringify(product), { headers: headers, withCredentials: true })
             .toPromise()
             .then(function () { return product; })
             .catch(this.handleError);
     };
     ProductService.prototype.getProducts = function () {
         var headers = new http_1.Headers();
-        this.addAutorizationHeader(headers);
         headers.append("Content-Type", "application/x-www-form-urlencoded");
         return this.http.get(this.productsUrl + "/products", { headers: headers })
             .toPromise()
             .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    ProductService.prototype.deleteProduct = function (product) {
+        var url = this.productsUrl + "/product/" + product.productId;
+        return this.http.delete(url, { withCredentials: true })
+            .toPromise()
+            .then(function () { return product; })
+            .catch(this.handleError);
+    };
+    ProductService.prototype.addProduct = function (product) {
+        var url = this.productsUrl + "/products";
+        return this.http.post(url, JSON.stringify(product), { withCredentials: true })
+            .toPromise()
+            .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     ProductService.prototype.handleError = function (error) {
@@ -45,25 +54,6 @@ var ProductService = (function () {
     };
     ProductService.prototype.getProduct = function (number) {
         return this.getProducts().then(function (products) { return products.find(function (product) { return product.productId === number; }); });
-    };
-    ProductService.prototype.deleteProduct = function (product) {
-        var url = this.productsUrl + "/product/" + product.productId;
-        var headers = new http_1.Headers();
-        this.addAutorizationHeader(headers);
-        return this.http.delete(url, { headers: headers })
-            .toPromise()
-            .then(function () { return product; })
-            .catch(this.handleError);
-    };
-    ProductService.prototype.addProduct = function (product) {
-        var headers = new http_1.Headers();
-        this.addAutorizationHeader(headers);
-        headers.append("Content-Type", "application/json");
-        var url = this.productsUrl + "/products";
-        return this.http.post(url, JSON.stringify(product), { headers: headers })
-            .toPromise()
-            .then(function (res) { return res.json(); })
-            .catch(this.handleError);
     };
     ProductService = __decorate([
         core_1.Injectable(), 

@@ -13,11 +13,9 @@ export class ProductSearchService {
 
     search(term: String): Observable<Product[]> {
         let url = `${this.productsUrl}/products?name=${term}`;
-        let headers = new Headers;
-        headers.append("Authorization", "Basic " + btoa("admin" + ":" + "password"));
 
         return this.http
-            .get(url, {headers: headers})
+            .get(url)
             .map((r: Response) => r.json() as Product[]);
     }
 

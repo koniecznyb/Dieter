@@ -9,26 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var JournalService = (function () {
-    function JournalService(http) {
-        this.http = http;
-        this.url = "http://localhost:8080";
+var router_1 = require("@angular/router");
+var AuthGuard = (function () {
+    function AuthGuard(router) {
+        this.router = router;
     }
-    // getProducts(): Product[]{
-    //     return http.get()
-    // }
-    JournalService.prototype.getJournals = function () {
-        var currentUsername = JSON.parse(localStorage.getItem("currentUser")).name;
-        return this.http.get(this.url + "/user/" + currentUsername + "/journals", { withCredentials: true })
-            .toPromise()
-            .then(function (response) { return response.json(); });
+    AuthGuard.prototype.canActivate = function () {
+        if (localStorage.getItem('currentUser')) {
+            return true;
+        }
+        this.router.navigate(['/login']);
+        return false;
     };
-    JournalService = __decorate([
+    AuthGuard = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], JournalService);
-    return JournalService;
+        __metadata('design:paramtypes', [router_1.Router])
+    ], AuthGuard);
+    return AuthGuard;
 }());
-exports.JournalService = JournalService;
-//# sourceMappingURL=journal.service.js.map
+exports.AuthGuard = AuthGuard;
+//# sourceMappingURL=auth-guard.js.map
