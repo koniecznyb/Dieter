@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,31 +33,35 @@ public class JournalController {
     @RequestMapping(value = "/journals", method = RequestMethod.GET)
     public
     @ResponseBody
-    Iterable<Journal> getJournals() {
+    ResponseEntity<Iterable<Journal>> getJournals() {
         List<Journal> journalRestObjectList = Lists.newArrayList(journalRepository.findAll());
 
         journalRestObjectList.forEach(j -> j.add(linkTo(JournalController.class).slash(j.getId()).withSelfRel()));
         journalRestObjectList.sort((o1, o2) -> o1.getLastModificationDate().compareTo(o2.getLastModificationDate()));
 
-        return journalRestObjectList;
+        return new ResponseEntity<>(journalRestObjectList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/journals", method = RequestMethod.POST)
     public
     @ResponseBody
-    Journal saveJournal(@RequestBody Journal journal) {
+    ResponseEntity<Journal> saveJournal(@RequestBody Journal journal) {
         LOG.info("saving Journal: " + journal);
-        return journalRepository.save(journal);
+        Journal savedJournal = journalRepository.save(journal);
+        if (savedJournal != null) {
+            return new ResponseEntity<>(savedJournal, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/journal/{id}", method = RequestMethod.GET)
     public
     @ResponseBody
-    Journal getJournal(@PathVariable("id") Long id) {
+    ResponseEntity<Journal> getJournal(@PathVariable("id") Long id) {
         Optional<Journal> Journal = journalRepository.findByJournalId(id);
         if (Journal.isPresent()) {
-            return Journal.get();
+            return new ResponseEntity<>(Journal.get(), HttpStatus.OK);
         }
-        return null;
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

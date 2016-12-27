@@ -1,16 +1,17 @@
 package org.bk.dieter.user;
 
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.bk.dieter.journal.Journal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -20,26 +21,34 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
  * Created by redi on 17.05.2016.
  */
 @RestController
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomerController {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    private final
     @NonNull
-    CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+
+    @Autowired
+    public CustomerController(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
+    @RequestMapping("/user")
+    public Principal checkCustomer(Principal user) {
+        return user;
+    }
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/user/{firstName}", method = RequestMethod.GET)
-    public Customer getUser(@PathVariable String firstName) {
+    public ResponseEntity<Customer> getUser(@PathVariable String firstName) {
         Optional<Customer> customerOptional = customerRepository.findByFirstName(firstName);
         if (!customerOptional.isPresent()) {
-            return null;
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         Customer customer = customerOptional.get();
         customer.add(linkTo(Customer.class).slash("user/" + customer.getFirstName()).withSelfRel());
         customer.add(linkTo(Journal.class).slash("user/" + customer.getFirstName() + "/journals").withRel("journals"));
-        return customer;
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @ExceptionHandler({SQLException.class, DataAccessException.class})

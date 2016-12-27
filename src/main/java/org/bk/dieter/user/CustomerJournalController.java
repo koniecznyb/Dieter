@@ -4,14 +4,13 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bk.dieter.exception.ResourceNotFoundException;
 import org.bk.dieter.journal.Journal;
-import org.omg.CosNaming.NamingContextPackage.NotFoundReason;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -38,13 +37,13 @@ public class CustomerJournalController {
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/user/{firstName}/journals", method = RequestMethod.GET)
-    public Set<Journal> getCustomerJournals(@PathVariable String firstName) {
+    public ResponseEntity<Set<Journal>> getCustomerJournals(@PathVariable String firstName) {
         Optional<Customer> customer = customerService.findByFirstName(firstName);
         if (!customer.isPresent()) {
             throw new ResourceNotFoundException();
         }
 
-        if(!firstName.equals(UserUtils.getCurrentUserName())){
+        if (!firstName.equals(UserUtils.getCurrentUserName())) {
             throw new AccessDeniedException("Insufficient permissions");
         }
 
@@ -55,18 +54,18 @@ public class CustomerJournalController {
 
         LOG.error("Journals: {}" + customer.get().getJournals().size());
 
-        return customer.get().getJournals();
+        return new ResponseEntity<>(customer.get().getJournals(), HttpStatus.OK);
     }
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/user/{firstName}/journals", method = RequestMethod.POST)
-    public Set<Journal> postCustomerJournal(@PathVariable String firstName, @RequestBody Journal newJournal) {
+    public ResponseEntity<Set<Journal>> postCustomerJournal(@PathVariable String firstName, @RequestBody Journal newJournal) {
         Optional<Customer> customerOptional = customerService.findByFirstName(firstName);
         if (!customerOptional.isPresent()) {
             throw new ResourceNotFoundException();
         }
 
-        if(!firstName.equals(UserUtils.getCurrentUserName())){
+        if (!firstName.equals(UserUtils.getCurrentUserName())) {
             throw new AccessDeniedException("Insufficient permissions");
         }
 
@@ -77,6 +76,6 @@ public class CustomerJournalController {
             journal.add(linkTo(Journal.class).slash("journal").slash(journal.getJournalId()).withSelfRel());
         });
 
-        return updatedCustomer.getJournals();
+        return new ResponseEntity<>(updatedCustomer.getJournals(), HttpStatus.OK);
     }
 }

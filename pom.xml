@@ -16,6 +16,7 @@
         <jackson.version>2.4.5</jackson.version>
         <guava.version>19.0</guava.version>
         <spring-hateoas.version>0.17.0.RELEASE</spring-hateoas.version>
+        <apache.commons3.version>3.0</apache.commons3.version>
     </properties>
 
     <parent>
@@ -26,6 +27,11 @@
     </parent>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.commons3.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
