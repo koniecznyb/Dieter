@@ -1,6 +1,1 @@
-entry{
-    app: 'app/app.module.ts'
-}
-output: {
-    filename: 'app.js'
-}
+module.exports = require('./config/webpack.dev.js');
