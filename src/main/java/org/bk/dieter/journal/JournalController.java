@@ -26,14 +26,12 @@ public class JournalController {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    private final
     @NonNull
-    JournalRepository journalRepository;
+    private final JournalRepository journalRepository;
 
     @RequestMapping(value = "/journals", method = RequestMethod.GET)
-    public
     @ResponseBody
-    ResponseEntity<Iterable<Journal>> getJournals() {
+    public ResponseEntity<Iterable<Journal>> getJournals() {
         List<Journal> journalRestObjectList = Lists.newArrayList(journalRepository.findAll());
 
         journalRestObjectList.forEach(j -> j.add(linkTo(JournalController.class).slash(j.getId()).withSelfRel()));
@@ -43,9 +41,8 @@ public class JournalController {
     }
 
     @RequestMapping(value = "/journals", method = RequestMethod.POST)
-    public
     @ResponseBody
-    ResponseEntity<Journal> saveJournal(@RequestBody Journal journal) {
+    public ResponseEntity<Journal> saveJournal(@RequestBody Journal journal) {
         LOG.info("saving Journal: " + journal);
         Journal savedJournal = journalRepository.save(journal);
         if (savedJournal != null) {
@@ -55,8 +52,8 @@ public class JournalController {
     }
 
     @RequestMapping(value = "/journal/{id}", method = RequestMethod.GET)
-    public
     @ResponseBody
+    public
     ResponseEntity<Journal> getJournal(@PathVariable("id") Long id) {
         Optional<Journal> Journal = journalRepository.findByJournalId(id);
         if (Journal.isPresent()) {
