@@ -6,10 +6,9 @@ import {Product} from "../../../_model/product";
 import {ProductService} from "../../../_service/product.service";
 
 @Component({
-    moduleId: module.id,
     selector: 'product-details',
-    templateUrl: 'product-details.component.html',
-    styleUrls: ['product-details.component.css']
+    templateUrl: './product-details.component.html',
+    styleUrls: ['./product-details.component.css']
 })
 
 export class ProductDetailsComponent implements OnInit {
@@ -29,8 +28,14 @@ export class ProductDetailsComponent implements OnInit {
             .then(() => this.goBack());
     }
 
-    currentUser(){
+    isLoggedIn(){
         return localStorage.getItem("currentUser");
+    }
+
+    delete(product: Product): void{
+        this.productService
+            .deleteProduct(product)
+            .then(() => this.goBack());
     }
 
     @Input()

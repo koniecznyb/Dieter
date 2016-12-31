@@ -1,8 +1,9 @@
 <h2>Dashboard</h2>
-<div class="grid grid-pad">
-    <a *ngFor="let product of products" [routerLink]="['/product', product.productId]" class="col-1-4">
-        <div class="module product">
-            <h4>{{product.name}}</h4>
-        </div>
-    </a>
+
+<div *ngIf="isLoggedIn()">
+    Your current weight is: Your goal is:
+</div>
+
+<div *ngIf="!isLoggedIn()">
+    Log in to calculate your diet needs.
 </div>

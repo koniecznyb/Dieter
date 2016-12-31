@@ -6,10 +6,9 @@ import {ProductSearchService} from "../../../_service/product-search.service";
 import {Product} from "../../../_model/product";
 
 @Component({
-    moduleId: module.id,
     selector: 'product-search',
-    templateUrl: 'product-search.component.html',
-    styleUrls: ['product-search.component.css'],
+    templateUrl: './product-search.component.html',
+    styleUrls: ['./product-search.component.css'],
     providers: [ProductSearchService]
 })
 

@@ -1,16 +1,12 @@
 <h2>{{title}}</h2>
-<button (click)="goToAddNew()">Add New</button>
+
+<button *ngIf="isLoggedIn()" (click)="goToAddNew()">Add New</button>
 <product-search></product-search>
-<ul class="products">
-    <li *ngFor="let product of products" (click)="onSelect(product)" [class.selected]="product === selectedProduct">
-        <span class="product">{{product.productId}}</span>
-        <span>{{product.name}}</span>
-        <button class="delete" (click)="delete(product); $event.stopPropagation()">x</button>
-    </li>
-</ul>
-<div *ngIf="selectedProduct">
-    <h2>
-        {{selectedProduct.name | uppercase}}
-    </h2>
-    <button (click)="goToDetails()">View Details</button>
+
+<div class="grid grid-pad">
+    <a *ngFor="let product of products" [routerLink]="['/product', product.productId]" class="col-1-4">
+        <div class="module product">
+            <h4>{{product.name}}</h4>
+        </div>
+    </a>
 </div>

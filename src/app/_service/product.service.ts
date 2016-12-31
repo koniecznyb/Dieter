@@ -1,24 +1,25 @@
-import {Injectable} from "@angular/core";
-import {Product} from "../_model/product";
-import {Http, Headers, RequestOptions} from "@angular/http";
-import "rxjs/add/operator/toPromise";
+import { Injectable, Inject } from "@angular/core";
+import { Product } from "../_model/product";
+import { Http, Headers } from "@angular/http";
+import { AppConfig, APP_CONFIG } from "../app.config";
 
 @Injectable()
 export class ProductService {
 
-    private productsUrl = "http://localhost:8080"
+    private url: string;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, @Inject(APP_CONFIG) config: AppConfig) {
+        this.url = config.apiEndpoint;
     }
 
     update(product: Product): Promise<Product> {
-        const url = `${this.productsUrl}/product/${product.productId}`;
+        const url = `${this.url}/product/${product.productId}`;
 
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
 
         return this.http
-            .put(url, JSON.stringify(product), {headers: headers, withCredentials: true})
+            .put(url, JSON.stringify(product), { headers: headers, withCredentials: true })
             .toPromise()
             .then(() => product)
             .catch(this.handleError);
@@ -28,25 +29,28 @@ export class ProductService {
         let headers = new Headers();
         headers.append("Content-Type", "application/x-www-form-urlencoded");
 
-        return this.http.get(this.productsUrl + "/products", {headers: headers})
+        return this.http.get(this.url + "/products", { headers: headers })
             .toPromise()
             .then(response => response.json() as Product[])
             .catch(this.handleError)
     }
 
     deleteProduct(product: Product): Promise<Product> {
-        const url = `${this.productsUrl}/product/${product.productId}`;
+        const url = `${this.url}/product/${product.productId}`;
 
-        return this.http.delete(url, {withCredentials: true})
+        return this.http.delete(url, { withCredentials: true })
             .toPromise()
             .then(() => product)
             .catch(this.handleError);
     }
 
     addProduct(product: Product) {
-        const url = `${this.productsUrl}/products`;
+        const url = `${this.url}/products`;
 
-        return this.http.post(url, JSON.stringify(product), {withCredentials: true})
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        return this.http.post(url, JSON.stringify(product), { withCredentials: true, headers: headers })
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);

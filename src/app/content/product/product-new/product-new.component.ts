@@ -6,9 +6,8 @@ import {ProductService} from "../../../_service/product.service";
 
 
 @Component({
-    moduleId: module.id,
-    templateUrl: "product-new.component.html",
-    styleUrls: ["product-new.component.css"],
+    templateUrl: "./product-new.component.html",
+    styleUrls: ["./product-new.component.css"],
     selector: 'product-new'
 })
 

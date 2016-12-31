@@ -4,9 +4,8 @@ import {JournalService} from "../../../_service/journal.service";
 
 @Component({
     selector: 'journal-list',
-    moduleId: module.id,
-    templateUrl: "journal-list.component.html",
-    styleUrls: ['journal-list.component.css']
+    templateUrl: "./journal-list.component.html",
+    styleUrls: ['./journal-list.component.css']
 })
 
 export class JournalListComponent implements OnInit{

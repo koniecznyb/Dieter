@@ -39,8 +39,6 @@
         {{product.journals}}
     </div>
 </div>
-
+<button *ngIf="isLoggedIn()" class="delete" (click)="delete(product); $event.stopPropagation()">Delete</button>
+<button *ngIf="isLoggedIn()">Save</button>
 <button (click)="goBack()">Back</button>
-<div *ngIf="currentUser()">
-    <button (click)="save()">Save</button>
-</div>

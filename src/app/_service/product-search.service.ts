@@ -1,18 +1,20 @@
-import {Injectable} from "@angular/core";
-import {Http, Response, Headers} from "@angular/http";
-import {Product} from "../_model/product";
-import {Observable} from "rxjs";
+import { Injectable, Inject } from "@angular/core";
+import { Http, Response, Headers } from "@angular/http";
+import { Product } from "../_model/product";
+import { Observable } from "rxjs";
+import { AppConfig, APP_CONFIG } from "../app.config";
 
 @Injectable()
 export class ProductSearchService {
 
-    private productsUrl = "http://localhost:8080"
+    private url: string;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, @Inject(APP_CONFIG) config: AppConfig) {
+        this.url = config.apiEndpoint;
     }
 
     search(term: String): Observable<Product[]> {
-        let url = `${this.productsUrl}/products?name=${term}`;
+        let url = `${this.url}/products?name=${term}`;
 
         return this.http
             .get(url)
