@@ -1,9 +1,12 @@
-package org.bk.dieter.user;
+package org.bk.dieter.user.journal;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bk.dieter.exception.ResourceNotFoundException;
 import org.bk.dieter.journal.Journal;
+import org.bk.dieter.user.Customer;
+import org.bk.dieter.user.CustomerService;
+import org.bk.dieter.user.auth.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

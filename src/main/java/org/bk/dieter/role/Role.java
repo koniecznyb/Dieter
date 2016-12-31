@@ -3,9 +3,7 @@ package org.bk.dieter.role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.bk.dieter.user.Customer;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;

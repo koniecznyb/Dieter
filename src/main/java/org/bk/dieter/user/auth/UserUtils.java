@@ -1,4 +1,4 @@
-package org.bk.dieter.user;
+package org.bk.dieter.user.auth;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

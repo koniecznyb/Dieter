@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -26,9 +25,6 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    PasswordEncoder bCryptPasswordEncoder;
 
     @NonNull
     private final CustomerRepository customerRepository;
@@ -46,7 +42,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         String password = customer.getPassword();
         Set<Role> roles = customer.getRoles();
-
 
         LOG.debug("Loading user [{}], with password [{}], with roles [{}]", username, password, roles);
 

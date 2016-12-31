@@ -2,6 +2,7 @@ package org.bk.dieter.user;
 
 import lombok.NonNull;
 import org.bk.dieter.journal.Journal;
+import org.bk.dieter.user.auth.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,11 +61,5 @@ public class CustomerController {
     @ExceptionHandler({SQLException.class, DataAccessException.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Data access error")
     public void databaseError() {
-    }
-
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public Customer saveCustomer(Customer customer) {
-        return customerRepository.save(customer);
     }
 }

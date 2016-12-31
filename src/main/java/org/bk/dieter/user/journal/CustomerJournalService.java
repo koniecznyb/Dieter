@@ -1,9 +1,11 @@
-package org.bk.dieter.user;
+package org.bk.dieter.user.journal;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bk.dieter.journal.Journal;
 import org.bk.dieter.journal.JournalRepository;
+import org.bk.dieter.user.Customer;
+import org.bk.dieter.user.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

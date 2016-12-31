@@ -28,7 +28,7 @@ public class Customer extends ResourceSupport{
     @SequenceGenerator(name = "customer_id_gen", sequenceName = "seq_customer_id", allocationSize = 1, initialValue = 1)
     private Long customerId;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = false, unique = true)
     @Setter
     private String firstName;
 
