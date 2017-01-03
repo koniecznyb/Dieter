@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { LoginService } from "../../auth/login.service";
 import { Location } from "@angular/common";
@@ -21,7 +22,14 @@ export class SignupComponent {
     register(event: any, username: string, password: string, email: string) {
         this.loginService
             .register(username, password, email)
-            .then(() => this.goBack());
+            .then(() => this.goBack())
+            .catch((error) => this.handleError(error));
+    }
+
+    handleError(error: Response){
+        if(error.status === 409){
+            this.flashMessagesService.show("Username taken!");
+        }
     }
 
     goBack(): void {
