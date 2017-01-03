@@ -1,6 +1,7 @@
 package org.bk.dieter.user.auth;
 
 import com.google.common.collect.Sets;
+import com.google.common.util.concurrent.ExecutionError;
 import lombok.NonNull;
 import org.bk.dieter.role.Role;
 import org.bk.dieter.role.RoleRepository;
@@ -50,7 +51,11 @@ public class CustomerRegistrationController {
         String encodedPassword = passwordEncoder.encode(customerSignupDTO.getPassword());
         customer.setPassword(encodedPassword);
 
-        customerRepository.save(customer);
+        try{
+            customerRepository.save(customer);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
