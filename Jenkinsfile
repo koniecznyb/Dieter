@@ -1,10 +1,11 @@
 pipeline {
     agent any
 
-
     stages {
         stage('Preparation') {
-            git 'https://github.com/kserio/DieterBackend.git'
+            steps{
+                git 'https://github.com/kserio/DieterBackend.git'
+            }
         }
         stage('Build') {
             steps {
