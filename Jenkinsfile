@@ -1,8 +1,9 @@
 pipeline {
     agent any
 
+    def mvnHome
+
     stages {
-        def mvnHome
         stage('Preparation') {
             git 'https://github.com/kserio/DieterBackend.git'
             mvnHome = tool 'M3'
