@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven 3.5.0'
+        jdk 'jdk8'
+    }
+
     stages {
         stage('Preparation') {
             steps{
@@ -10,14 +15,12 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                echo '${mvnHome}'
-                sh "mvn --version"
-                sh "mvn -Dmaven.test.failure.ignore clean package"
+                sh "mvn -DskipTests=true clean package"
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                echo 'mvn clean verify'
             }
         }
         stage('Deploy') {
