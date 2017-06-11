@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                echo ${mvnHome}
+                echo '${mvnHome}'
                 sh "mvn --version"
                 sh "mvn -Dmaven.test.failure.ignore clean package"
             }
