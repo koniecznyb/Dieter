@@ -1,0 +1,9 @@
+<h2>Dashboard</h2>
+
+<div *ngIf="isLoggedIn()">
+    Your current weight is: Your goal is:
+</div>
+
+<div *ngIf="!isLoggedIn()">
+    Log in to calculate your diet needs.
+</div>

@@ -1,0 +1,12 @@
+<h2>{{title}}</h2>
+
+<button *ngIf="isLoggedIn()" (click)="goToAddNew()">Add New</button>
+<product-search></product-search>
+
+<div class="grid grid-pad">
+    <a *ngFor="let product of products" [routerLink]="['/product', product.productId]" class="col-1-4">
+        <div class="module product">
+            <h4>{{product.name}}</h4>
+        </div>
+    </a>
+</div>

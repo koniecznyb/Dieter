@@ -1,0 +1,31 @@
+<h2>Add new product</h2>
+
+<div>
+    <label>Product name:</label>
+    <input #productName type="text"/>
+</div>
+
+<div>
+    <label>Calories count:</label>
+    <input #calories type="number"/>
+</div>
+
+<div>
+    <label>Proteins count:</label>
+    <input #proteins type="number"/>
+</div>
+
+<div>
+    <label>Carbohydrates count:</label>
+    <input #carbohydrates type="number"/>
+</div>
+
+<div>
+    <label>Fat count:</label>
+    <input #fats type="number"/>
+</div>
+
+<div>
+    <button (click)="goBack()">Go back</button>
+    <button (click)="addProduct(productName.value, calories.value, proteins.value, carbohydrates.value, fats.value); goBack();">Add</button>
+</div>
