@@ -25,7 +25,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo 'Building docker image....'
+                sh 'docker build -t dieter-backend .'
+                echo 'Run docker container'
+                sh 'docker run dieter-backend'
             }
         }
     }
